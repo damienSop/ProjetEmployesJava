@@ -1,9 +1,8 @@
-import java.text.ParseException;
-import java.text.SimpleDateFormat; 
-import java.time.LocalDate;  // import the LocalDate class
+// import java.text.ParseException;
+// import java.text.SimpleDateFormat; 
+// import java.time.LocalDate;  // import the LocalDate class
+//import java.util.Date;
 import java.util.Calendar;   // Import the calendar class
-import java.util.Date;
-
 public class Employe {
     // Définition des attributs de la classe et leurs mode d'accès (Getter et Setter)
 
@@ -67,16 +66,6 @@ public class Employe {
             this.mDateEmbauche = newmDateEmbauche;
         }
 
-    /*private int mAnciennete;
-        // Getter
-        public int getmAnciennete() {
-            return mAnciennete;
-        }
-        // Setter
-        public void setmAnciennete(int newmAnciennete) {
-            this.mAnciennete = newmAnciennete;
-        } */
-
     //*******  Définition du constructeur ****************//
 
     public Employe(String matricule, String nom, String prenom, Calendar dateNaissance, Calendar dateEmbauche, double salaireBase) {
@@ -93,26 +82,60 @@ public class Employe {
 
     // Méthode  Calcul age()
     public int calculAge() {
-        
-        LocalDate dateActuelle = LocalDate.now(); // Définition date actuelle
-        Calendar cal = Calendar.getInstance();
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
-        Date date = simpleDateFormat.parse("20/11/1982");
-        cal.setTime(date.);
-        cal.;
+        Calendar dateActuelle = Calendar.getInstance(); 
+        dateActuelle.setTime(dateActuelle.getTime()); // Définition date actuelle
+        int age = dateActuelle.get(Calendar.YEAR) - this.mDateNaissance.get(Calendar.YEAR); 
+
+        return age;
     }
 
-    try {
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
-         Date date = simpleDateFormat.parse("20/11/1982");
-         cal.setTime(date);
-         
-          
-          System.out.println(myObj.getYear());
-           System.out.println(cal.YEAR);
-            System.out.println(myObj.getYear()-cal.YEAR);
-             } catch (ParseException e) {
-            e.printStackTrace();
-          }
+    // Méthode  Calcul anciennete()
+    public int calculAnciennete() {
+        Calendar dateActuelle = Calendar.getInstance(); 
+        dateActuelle.setTime(dateActuelle.getTime()); // Définition date actuelle
+        int anciennete = dateActuelle.get(Calendar.YEAR) - this.mDateEmbauche.get(Calendar.YEAR);
+
+        return anciennete;
+    }
+
+    // Méthode calcul augmentation()
+    public double calculAugmentation() {
+        if (this.calculAnciennete() < 5) {
+            double augmentation = 0.02 * this.mSalaireBase;
+            return augmentation;
+        } else if (this.calculAnciennete() < 10) {
+            double augmentation = 0.05 * this.mSalaireBase;
+            return augmentation;
+        } else {
+            double augmentation = 0.1 * this.mSalaireBase;
+            return augmentation;  
+        }
+    } 
+
+    // Méthode Afficher Employe()
+    public void afficherEmployer() {
+        System.out.println("********************* EMPLOYE **********************");
+        System.out.println(" ");
+        System.out.println("-   Matricule : " + this.mMatricule);
+        System.out.println(" ");
+
+        String nomComplet = this.mNom.toUpperCase() + " " + this.mPrenom.substring(0, 1).toUpperCase() + this.mPrenom.substring(1, this.mPrenom.length()).toLowerCase();
+        System.out.println("-   NOM Complet : " + nomComplet);
+        System.out.println(" ");
+
+        System.out.println("-   Age : " + this.calculAge() + " ans");
+        System.out.println(" ");
+
+        System.out.println("-   Ancienneté : " + this.calculAnciennete() + " ans");
+        System.out.println(" ");
+
+        double salaireTotal = this.mSalaireBase + this.calculAugmentation();
+        System.out.println("-   Salaire avec augmentation : " + salaireTotal + " euros/an");
+        System.out.println(" ");
+
+        System.out.println("NOTE: Pour une ancienneté de " + this.calculAnciennete() + " ans" + " on applique une augmentation de " + this.calculAugmentation() + " " + " euros/an");
+        System.out.println(" ");
+
+    } 
 
 }

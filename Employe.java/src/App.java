@@ -1,8 +1,7 @@
 import java.util.Scanner;
 import java.text.SimpleDateFormat;
 //import java.time.LocalDate;  // import the LocalDate class
-//import java.util.Calendar;
-import java.util.Date;
+import java.util.Calendar;
 //import java.text.ParseException;
 
 public class App {
@@ -19,24 +18,24 @@ public class App {
 
         System.out.println("Entrer le prénom");
         String newmPrenom = scan.nextLine();
-
-        System.out.println("Entrer la date de naissance: JJ/MM/AAAA");
-        String dateNai = scan.nextLine();
+ 
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
-        Date newmDateNaissance = new Date();
-        Date newmDateEmbauche = new Date();
+        Calendar newmDateNaissance = Calendar.getInstance();
+        Calendar newmDateEmbauche = Calendar.getInstance();
         try {
-            newmDateNaissance = simpleDateFormat.parse(dateNai);
+            System.out.println("Entrer la date de naissance: JJ/MM/AAAA");
+            String dateNai = scan.nextLine();
+            newmDateNaissance.setTime(simpleDateFormat.parse(dateNai));
 
             System.out.println("Entrer la date d'embauche: JJ/MM/AAAA");
             String dateEmb = scan.nextLine();
-             newmDateEmbauche = simpleDateFormat.parse(dateEmb);
+             newmDateEmbauche.setTime(simpleDateFormat.parse(dateEmb));
             
         } catch (Exception e) {
             System.out.println(e.toString());
         }
         
-        System.out.println("Entrer le salaire annuel de base");
+        System.out.println("Entrer le salaire brut annuel de base");
         double newmSalaireBase = scan.nextDouble();
 
         scan.close();
